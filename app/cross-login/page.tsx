@@ -52,7 +52,8 @@ function CrossLoginForm() {
       if (error) throw error
 
       // 登录成功后重定向到跨域回调
-      const callbackUrl = new URL('/auth/cross-domain', window.location.origin)
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+      const callbackUrl = new URL('/auth/cross-domain', siteUrl)
       callbackUrl.searchParams.set('redirect_to', redirectTo)
       callbackUrl.searchParams.set('next', '/')
       
@@ -69,7 +70,8 @@ function CrossLoginForm() {
     setError(null)
 
     try {
-      const callbackUrl = new URL('/auth/cross-domain', window.location.origin)
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+      const callbackUrl = new URL('/auth/cross-domain', siteUrl)
       callbackUrl.searchParams.set('redirect_to', redirectTo)
       callbackUrl.searchParams.set('next', '/')
 

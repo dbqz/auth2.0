@@ -69,7 +69,8 @@ export function LoginForm({
 
     try {
       // 构建回调URL，包含重定向参数
-      const callbackUrl = new URL('/auth/callback', window.location.origin)
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+      const callbackUrl = new URL('/auth/callback', siteUrl)
       if (redirectUrl) {
         callbackUrl.searchParams.set('wz', encodeURIComponent(redirectUrl))
       }

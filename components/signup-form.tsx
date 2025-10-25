@@ -46,11 +46,12 @@ export function SignupForm({
     }
 
     try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/otp?email=${encodeURIComponent(email)}`,
+          emailRedirectTo: `${siteUrl}/otp?email=${encodeURIComponent(email)}`,
         },
       })
 
@@ -70,10 +71,11 @@ export function SignupForm({
     setError(null)
 
     try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${siteUrl}/auth/callback`,
         },
       })
 

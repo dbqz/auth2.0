@@ -1,13 +1,12 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { Button } from "@/components/ui/button"
 import { RefreshButton } from "@/components/refresh-button"
+import { SignOutButton } from "@/components/sign-out-button"
 import Image from "next/image"
 import {
   User,
   Mail,
   Shield,
-  LogOut,
   CheckCircle,
   Calendar,
   Github,
@@ -23,13 +22,6 @@ export default async function Home() {
 
   // 如果未登录,重定向到登录页
   if (!user) {
-    redirect("/login")
-  }
-
-  const handleSignOut = async () => {
-    "use server"
-    const supabase = await createClient()
-    await supabase.auth.signOut()
     redirect("/login")
   }
 
@@ -256,17 +248,9 @@ export default async function Home() {
           {/* 操作按钮 */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
             <div className="flex flex-col sm:flex-row gap-4">
-              <form action={handleSignOut} className="flex-1">
-                <Button
-                  type="submit"
-                  variant="outline"
-                  className="w-full h-12 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 border-red-200 hover:border-red-300 dark:border-red-800 dark:hover:border-red-700"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  安全退出
-                </Button>
-              </form>
-
+              <div className="flex-1">
+                <SignOutButton />
+              </div>
               <RefreshButton />
             </div>
           </div>
